@@ -1,0 +1,24 @@
+{
+  "dataSource": [
+    {
+      "scope": "RedditNewsIngester",
+      "setting": "frequency",
+      "value": "15"
+    },
+    {
+      "scope": "RedditNewIngester",
+      "setting": "feature flag",
+      "value": "TRUE"
+    },
+    {
+      "scope": "SentimentAnalysis",
+      "setting": "scalar",
+      "value": "7"
+    },
+    {
+      "scope": "SentimentAnalysis",
+      "setting": "feature flag",
+      "value": "TRUE"
+    }
+  ]
+}
