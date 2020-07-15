@@ -9,7 +9,6 @@ import { dataSource } from "../../data/settings";
 // };
 
 const ConfigCell = ({editable, ...props}) => {
-  console.log(props)
   const [isEditting, setEditting] = useState(false);
   const inputRef = useRef();
 
