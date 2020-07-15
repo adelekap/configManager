@@ -4,11 +4,12 @@ import { Table } from "antd";
 import { columns } from "./columns";
 import { dataSource } from "../../data/settings";
 
-const Row = ({ ...props }) => {
-  return <tr {...props} />;
-};
+// const Row = ({ index, ...props }) => {
+//   return <tr {...props} />;
+// };
 
-const ConfigCell = ({ children }) => {
+const ConfigCell = ({editable, ...props}) => {
+  console.log(props)
   const [isEditting, setEditting] = useState(false);
   const inputRef = useRef();
 
@@ -18,9 +19,9 @@ const ConfigCell = ({ children }) => {
   }, [isEditting]);
 
   const edittingForm = <input ref={inputRef} type="text" placeholder={"Edit me"}></input>
-  const normalView = <span>{children}</span>;
+  const normalView = <span>{props.children}</span>;
   const toggleableView = (
-    <div onClick={() => setEditting(!isEditting)}>
+    <div onClick={() => setEditting(!isEditting && editable)}>
       {isEditting ? edittingForm : normalView}
     </div>
   );
@@ -31,11 +32,27 @@ const ConfigCell = ({ children }) => {
 export const ConfigTable = () => {
   // Add a unique value field to each piece of data, in this case, its index in the array
   const data = dataSource.map((d, i) => ({ ...d, dataIndex: i }));
+
+  const tableColumns = columns.map(col => {
+    // if (!col.editable) {
+    //   return col;
+    // }
+
+    return {
+      ...col,
+      onCell: record => ({
+        record,
+        editable: col.editable,
+        dataIndex: col.dataIndex,
+        title: col.title,
+      }),
+    };})
+
   return (
     <Table
-      components={{ body: { cell: ConfigCell, row: Row } }}
+      components={{ body: { cell: ConfigCell} }}
       dataSource={data}
-      columns={columns}
+      columns={tableColumns}
       rowKey="dataIndex"
     />
   );
