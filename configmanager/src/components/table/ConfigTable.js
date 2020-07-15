@@ -8,7 +8,7 @@ import { dataSource } from "../../data/settings";
 //   return <tr {...props} />;
 // };
 
-const ConfigCell = ({editable, ...props}) => {
+const ConfigCell = ({children, editable, dataIndex, record}) => {
   const [isEditting, setEditting] = useState(false);
   const inputRef = useRef();
 
@@ -17,8 +17,8 @@ const ConfigCell = ({editable, ...props}) => {
     if (isEditting) inputRef.current.focus();
   }, [isEditting]);
 
-  const edittingForm = <input ref={inputRef} type="text" placeholder={"Edit me"}></input>
-  const normalView = <span>{props.children}</span>;
+  const edittingForm = <input ref={inputRef} type="text" placeholder={record.value}></input>
+  const normalView = <span>{children}</span>;
   const toggleableView = (
     <div onClick={() => setEditting(!isEditting && editable)}>
       {isEditting ? edittingForm : normalView}
