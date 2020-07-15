@@ -8,17 +8,29 @@ import { dataSource } from "../../data/settings";
 //   return <tr {...props} />;
 // };
 
+
 const ConfigCell = ({children, editable, dataIndex, record}) => {
   const [isEditting, setEditting] = useState(false);
+  const [cellValue, setCellValue] = useState(record.value);
   const inputRef = useRef();
 
   // This function will run whenever isEdding changes value
   useEffect(() => {
     if (isEditting) inputRef.current.focus();
-  }, [isEditting]);
+    console.log(cellValue)
+  }, [isEditting, cellValue]);
 
-  const edittingForm = <input ref={inputRef} type="text" placeholder={record.value}></input>
-  const normalView = <span>{children}</span>;
+  const changeCellValue = ({key, currentTarget:{value}}) => {
+    if(key === 'Enter'){
+        setEditting(false)
+        record.value = value
+        setCellValue(value)
+        console.log(cellValue)
+    }
+}
+
+  const edittingForm = <input ref={inputRef} onKeyUp={changeCellValue} type="text" placeholder={cellValue}></input>
+  const normalView = <span>{cellValue}</span>;
   const toggleableView = (
     <div onClick={() => setEditting(!isEditting && editable)}>
       {isEditting ? edittingForm : normalView}
