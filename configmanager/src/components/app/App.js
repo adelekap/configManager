@@ -2,12 +2,15 @@ import React from 'react';
 import './App.css';
 
 import {ConfigTable} from "../table/ConfigTable"
+import { TableContextProvider } from '../table/TableContext';
 
 function App() {
   return (
     <div className="App">
       <div>
-        <ConfigTable/>
+        <TableContextProvider> 
+          <ConfigTable/> 
+        </TableContextProvider>    
       </div>
     </div>
   );
