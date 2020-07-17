@@ -16,12 +16,11 @@ const ConfigCell = ({ children, editable, dataIndex, record }) => {
 
   const changeCellValue = () => {
     if (isEditting) {
+      if(inputRef.current.value == null || inputRef.current.value == "" ) return;
       const cellValue = inputRef.current.value || record.value
+      console.log(cellValue)
       updateCell(dataIndex, record.dataIndex, cellValue);
-
-      if(inputRef.current.value != ""){
-      setEditting(false);}
-
+       setEditting(false)
     } else {
       setEditting(!isEditting && editable);
     }
@@ -40,7 +39,7 @@ const ConfigCell = ({ children, editable, dataIndex, record }) => {
   const normalView = <span>{children}</span>;
   const toggleableView = (
     <div onClick={changeCellValue}>
-      {isEditting || record.isNew ? edittingForm : normalView}
+      {isEditting  ? edittingForm : normalView}
     </div>
   );
 
