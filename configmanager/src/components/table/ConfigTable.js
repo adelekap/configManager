@@ -5,7 +5,7 @@ import { columns } from "./columns";
 import { TableContext } from "./TableContext";
 
 const ConfigCell = ({ children, editable, dataIndex, record }) => {
-  const [isEditting, setEditting] = useState(false);
+  const [isEditting, setEditting] = useState(record.isNew);
   const { updateCell } = useContext(TableContext);
   const inputRef = useRef();
 
@@ -18,7 +18,10 @@ const ConfigCell = ({ children, editable, dataIndex, record }) => {
     if (isEditting) {
       const cellValue = inputRef.current.value || record.value
       updateCell(dataIndex, record.dataIndex, cellValue);
-      setEditting(false);
+
+      if(inputRef.current.value != ""){
+      setEditting(false);}
+
     } else {
       setEditting(!isEditting && editable);
     }
@@ -37,7 +40,7 @@ const ConfigCell = ({ children, editable, dataIndex, record }) => {
   const normalView = <span>{children}</span>;
   const toggleableView = (
     <div onClick={changeCellValue}>
-      {isEditting ? edittingForm : normalView}
+      {isEditting || record.isNew ? edittingForm : normalView}
     </div>
   );
 
@@ -45,8 +48,6 @@ const ConfigCell = ({ children, editable, dataIndex, record }) => {
 };
 
 export const ConfigTable = () => {
-  // Add a unique value field to each piece of data, in this case, its index in the array
-
   const { tableState } = useContext(TableContext);
 
   const tableColumns = columns.map((col) => {

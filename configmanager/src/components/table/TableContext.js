@@ -14,18 +14,18 @@ export const TableContextProvider = ({children}) => {
         const data = {dataIndex: index,
                         scope: "",
                         setting:"",
-                        value:"ADD VALUE"}
+                        value:"",
+                        isNew:true}
 
         const newState = [...tableState,data]
         
         setState(newState)
-        
     }
 
     const updateCell = (columnName, rowNumber, newValue) => {
         const newState = tableState.map((value, index)=> {
             if(index === rowNumber){
-                const newRow = {...value, [columnName]:newValue}
+                const newRow = {...value, [columnName]:newValue, isNew:false}
                 return newRow
             }
             return value

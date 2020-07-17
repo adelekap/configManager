@@ -3,26 +3,44 @@
     {
       "dataIndex": 0,
       "scope": "RedditNewsIngester",
-      "setting": "frequency",
-      "value": "15"
+      "setting": "CRAWLER FREQUENCY",
+      "value": "15",
+      "isNew":false
     },
     {
       "dataIndex": 1,
       "scope": "RedditNewIngester",
-      "setting": "feature flag",
-      "value": "TRUE"
+      "setting": "FEATURE FLAG",
+      "value": "TRUE",
+      "isNew":false
     },
     {
       "dataIndex": 2,
-      "scope": "SentimentAnalysis",
-      "setting": "scalar",
-      "value": "7"
+      "scope": "RelationExtractor",
+      "setting": "NUM ATTRIBUTES",
+      "value": "5",
+      "isNew":false
     },
     {
-      "dataIndex": 3,
+        "dataIndex": 3,
+        "scope": "RelationExtractor",
+        "setting": "CORPUS",
+        "value": "NYT",
+        "isNew":false
+      },
+      {
+        "dataIndex": 4,
+        "scope": "RelationExtractor",
+        "setting": "FEATURE FLAG",
+        "value": "TRUE",
+        "isNew":false
+      },
+    {
+      "dataIndex": 5,
       "scope": "SentimentAnalysis",
-      "setting": "feature flag",
-      "value": "TRUE"
+      "setting": "FEATURE FLAG",
+      "value": "FALSE",
+      "isNew":false
     }
   ]
 }
