@@ -5,11 +5,12 @@ import { columns } from "./columns";
 import { TableContext } from "./TableContext";
 
 const ConfigCell = ({ children, editable, dataIndex, record }) => {
-  const [isEditting, setEditting] = useState(record.isNew);
+  const [isEditting, setEditting] = useState(record.isNew);  //localized to the cell
   const { updateCell } = useContext(TableContext);
-  const inputRef = useRef();
+  const inputRef = useRef();  // allows access to an html element
 
-  // This function will run whenever isEdding changes value
+  // This function will run whenever isEditing changes value
+  // or before anything is rendered on the screen
   useEffect(() => {
     if (isEditting) inputRef.current.focus();
   }, [isEditting]);
@@ -18,7 +19,6 @@ const ConfigCell = ({ children, editable, dataIndex, record }) => {
     if (isEditting) {
       if(inputRef.current.value == null || inputRef.current.value == "" ) return;
       const cellValue = inputRef.current.value || record.value
-      console.log(cellValue)
       updateCell(dataIndex, record.dataIndex, cellValue);
        setEditting(false)
     } else {
@@ -37,6 +37,7 @@ const ConfigCell = ({ children, editable, dataIndex, record }) => {
     ></input>
   );
   const normalView = <span>{children}</span>;
+  
   const toggleableView = (
     <div onClick={changeCellValue}>
       {isEditting  ? edittingForm : normalView}
@@ -46,13 +47,15 @@ const ConfigCell = ({ children, editable, dataIndex, record }) => {
   return <td>{toggleableView}</td>;
 };
 
+
+
 export const ConfigTable = () => {
   const { tableState } = useContext(TableContext);
 
-  const tableColumns = columns.map((col) => {
+  const tableColumns = columns.map((col) => {   // add some stuff for antd
     return {
       ...col,
-      onCell: (record) => ({
+      onCell: (record) => ({    // what antd will pass to our Cell as props
         record,
         editable: col.editable,
         dataIndex: col.dataIndex,
@@ -63,7 +66,7 @@ export const ConfigTable = () => {
 
   return (
     <Table
-      components={{ body: { cell: ConfigCell } }}
+      components={{ body: { cell: ConfigCell } }}  // override the default cell with our custom Cell
       dataSource={tableState}
       columns={tableColumns}
       rowKey="dataIndex"

@@ -34,7 +34,8 @@ export const TableContextProvider = ({children}) => {
         setState(newState)
     }
 
-    return (
+    return ( // could just expose the state and setState, but we are restricting the operations that can be done
+        // like a redux "reducer"
         <TableContext.Provider value={{tableState, updateCell, addCell}}>
             {children}
         </TableContext.Provider>

@@ -10,7 +10,7 @@ import { AddRowButton } from '../buttons/Buttons';
 function App() {
   return (
     <div className="App">
-      <Header></Header>
+      <Header/>
       <div>
         <TableContextProvider> 
           <ConfigTable/> 
