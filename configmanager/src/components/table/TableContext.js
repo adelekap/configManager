@@ -12,7 +12,7 @@ export const TableContextProvider = ({children}) => {
     const addCell = () => {
         const index = tableState[tableState.length-1].dataIndex + 1
         const data = {dataIndex: index,
-                        scope: "",
+                        scope: " ",
                         setting:"",
                         value:"",
                         isNew:true}
